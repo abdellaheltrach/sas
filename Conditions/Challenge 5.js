@@ -20,19 +20,19 @@ switch (choix) {
 
         break;
     case 2:
-        result = année * 12 * 30;
+        result = année * 365;
         console.log(`le nomber d'année ${annes} est egal ${result} jours.`)
         break;
     case 3:
-        result = année * 12 * 30 * 24;
+        result = année * 365 * 24;
         console.log(`le nomber d'année ${annes} est egal ${result} Heures.`)
         break;
     case 4:
-        result = année * 12 * 30 * 24 * 60;
+        result = année * 365 * 24 * 60;
         console.log(`le nomber d'année ${annes} est egal ${result} Minutes.`)
         break;
     case 5:
-        result = année * 12 * 30 * 24 * 60 * 60;
+        result = année * 365 * 24 * 60 * 60;
         console.log(`le nomber d'année ${annes} est egal ${result} Secondes.`)
         break;
 
