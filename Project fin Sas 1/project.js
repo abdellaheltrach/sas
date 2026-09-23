@@ -187,6 +187,7 @@ const trips = [
 
 const PromptSync = require("prompt-sync")();
 const tickets = [];
+let ticketcount = 0;
 
 do {
     console.clear();
@@ -228,7 +229,7 @@ do {
 
             break;
         case 4:
-            choix4(trips);
+            choix4AnnulerTicket();
 
             break;
         case 5:
@@ -269,28 +270,29 @@ function choix1AfficherTrajetsDisponible(trips) {
     console.clear();
 
 }
-//trips,tickets
-function choix2AcheterUnTicket(trips, tickets) {
+
+function choix2AcheterUnTicket(trips) {
     console.clear()
     console.log(`=== ACHETER UN TICKET === \n\n\n`)
     let passager = PromptSync("Nom du passager : ")
     let tripId = parseInt(PromptSync("Identifiant du trajet : "))
-    let foundId = -1;
+    let foundTripIndex = -1;
+
     for (let i = 0; i < trips.length; i++) {
         if (trips[i].id === tripId) {
-            foundId = i;
+            foundTripIndex = i;
             break;
         }
     }
 
-    if (foundId === -1) {
+    if (foundTripIndex === -1) {
         console.log(`Trajet introuvable. `);
         PromptSync("continue?. ");
         console.clear();
         return;
     }
 
-    if (trips[foundId].availableSeats === 0) {
+    if (trips[foundTripIndex].availableSeats === 0) {
         console.log(`Train complet. `)
         PromptSync("continue?. ");
         console.clear();
@@ -299,23 +301,8 @@ function choix2AcheterUnTicket(trips, tickets) {
 
 
 
-    const ticket = {
-        id: tickets.length + 1,
-        passengerName: passager,
-        tripId: trips[foundId].id,
-        seatNumber: 50 - trips[foundId].availableSeats + 1,
-        price: 90
-    }
 
-    tickets.push(ticket);
-    trips[foundId].availableSeats -= 1;
-
-    console.log(
-        `Ticket #${ticket.id} 
-Passager : ${ticket.passengerName}  
-Trajet : ${trips[foundId].departure}  → ${trips[foundId].destination}  
-Place : ${ticket.seatNumber}  
-Prix : ${trips[foundId].price} DH`)
+    createTiket(foundTripIndex, passager);
 
 
 
@@ -323,7 +310,7 @@ Prix : ${trips[foundId].price} DH`)
     console.clear();
 
 }
-function choix3AfficherLesTickets(tickets) {
+function choix3AfficherLesTickets() {
     console.clear()
     console.log(`=== TICKETS === \n\n\n`)
 
@@ -335,16 +322,28 @@ function choix3AfficherLesTickets(tickets) {
         return;
     }
 
-  
     for (let i = 0; i < tickets.length; i++) {
 
+        if (tickets[i].status === "annuler") {
+            continue;
+        }
+
+        let foundTripIndex = -1;
+        for (let j = 0; j < trips.length; j++) {
+            if (trips[j].id === tickets[i].tripId) {
+                foundTripIndex = j;
+                break;
+            }
+
+        }
+
+
         console.log(
-            `Ticket acheté avec succès. 
-    Ticket #${tickets.id} 
-    Passager : ${tickets.passengerName}  
-    Trajet : ${trips[tickets[i].tripId].departure}  → ${trips[tickets[i].tripId].destination}  
+            `    Ticket #${tickets[i].id} 
+    Passager : ${tickets[i].passengerName}  
+    Trajet : ${trips[foundTripIndex].departure}  → ${trips[foundTripIndex].destination}  
     Place : ${tickets[i].seatNumber}  
-    Prix : ${trips[tickets[i].tripId].price} DH\n\n\n`)
+    Prix : ${trips[foundTripIndex].price} DH\n\n\n`)
     }
 
 
@@ -353,6 +352,69 @@ function choix3AfficherLesTickets(tickets) {
     console.clear();
 
 }
+function choix4AnnulerTicket() {
+    console.clear()
+    console.log(`=== ANNULER UN TICKET === \n\n\n`)
+
+
+
+    if (tickets.length === 0) {
+        console.log(`AUCUN BILLET VENDU POUR L'INSTANT`)
+
+        PromptSync("continue?. ");
+        console.clear();
+        return;
+    }
+
+    let ticketIdForCancel = parseInt(PromptSync(`Identifiant du ticket : `))
+    let foundTicketIndexForCancel = -1;
+
+
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].id === ticketIdForCancel && tickets[i].status !== "annuler") {
+            foundTicketIndexForCancel = i;
+            break;
+        }
+    }
+
+    if (foundTicketIndexForCancel === -1) {
+        console.log(`Ticket introuvable. `)
+        PromptSync("continue?. ");
+        console.clear();
+        return;
+    }
+
+    let foundTripIndex = -1;
+    for (let j = 0; j < trips.length; j++) {
+        if (trips[j].id === tickets[foundTicketIndexForCancel].tripId) {
+            foundTripIndex = j;
+            break;
+        }
+
+    }
+
+
+    console.log(
+        `    Ticket #${tickets[foundTicketIndexForCancel].id} 
+Passager : ${tickets[foundTicketIndexForCancel].passengerName}  
+Trajet : ${trips[foundTripIndex].departure}  → ${trips[foundTripIndex].destination}  
+Place : ${tickets[foundTicketIndexForCancel].seatNumber}  
+Prix : ${trips[foundTripIndex].price} DH\n\n\n`)
+
+
+    let conferme = PromptSync("continue la nullation [y/n]? ").toLocaleLowerCase();
+
+    if (conferme === "y") {
+        tickets[foundTicketIndexForCancel].status = "annuler"
+        console.log(`Ticket annulé avec succès. `)
+
+    }
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
 function choixX() {
     console.clear()
 
@@ -362,3 +424,55 @@ function choixX() {
 }
 
 
+
+// Helpers
+function createTiket(foundTripIndex, passager) {
+
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].tripId === trips[foundTripIndex].id && tickets.status === "annuler") {
+
+            const ticket = {
+                id: ticketcount + 1,
+                passengerName: passager,
+                tripId: trips[foundTripIndex].id,
+                seatNumber: tickets[i].tripId,
+                status: "active",
+                price: 90
+            }
+            tickets.push(ticket);
+            ticketcount++;
+            trips[foundTripIndex].availableSeats -= 1;
+
+            console.log(`Ticket acheté avec succès.`);
+            printTicket(ticket);
+            return
+        }
+
+    }
+
+    const ticket = {
+        id: ticketcount + 1,
+        passengerName: passager,
+        tripId: trips[foundTripIndex].id,
+        seatNumber: 50 - trips[foundTripIndex].availableSeats + 1,
+        status: "active",
+        price: 90
+    }
+    tickets.push(ticket);
+    ticketcount++;
+    trips[foundTripIndex].availableSeats--;
+
+    console.log(`Ticket acheté avec succès.`);
+    printTicket(ticket, foundTripIndex);
+
+}
+
+function printTicket(ticket, foundTripIndex) {
+    console.log(
+        `
+Ticket #${ticket.id} 
+Passager : ${ticket.passengerName}  
+Trajet : ${trips[foundTripIndex].departure}  → ${trips[foundTripIndex].destination}  
+Place : ${ticket.seatNumber}  
+Prix : ${trips[foundTripIndex].price} DH`)
+}

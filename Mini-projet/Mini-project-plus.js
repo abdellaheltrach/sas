@@ -1,6 +1,7 @@
 const PromptSync = require("prompt-sync")();
 const tableaux = [];
 
+
 do {
     console.clear();
     let choix = 0;
