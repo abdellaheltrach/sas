@@ -206,7 +206,7 @@ do {
     console.log("[4] Annuler un ticket")
     console.log("[5] Rechercher un ticket")
     console.log("[6] Filtrer les trajets")
-    console.log("[7]  Trier les trajets")
+    console.log("[7] Trier les trajets")
     console.log("[0] Quitter le programme")
 
     choix = parseInt(PromptSync("Quelles votre choix?. "))
@@ -237,7 +237,7 @@ do {
 
             break;
         case 6:
-            choix6(trips);
+            choix6FiltrerTrajets();
             break;
         case 7:
             choix7(trips);
@@ -445,6 +445,76 @@ function choix5RechercherTicket() {
 
     PromptSync("continue?. ");
     console.clear();
+
+}
+
+function choix6FiltrerTrajets() {
+    console.clear()
+
+    let choix = -1;
+    console.log(
+        `================================= 
+           FILTER LES TRAJECT  
+================================= `)
+
+    console.log("[1] Filtrer les trajets par la Ville de départ ")
+    console.log("[2] Filtrer les trajets par Prix croissant")
+
+    choix = parseInt(PromptSync("Quelles votre choix?. "))
+
+
+    if (choix === 1) {
+        let departure = PromptSync("Ville de départ : ").toLocaleLowerCase()
+        let found = false;
+
+        for (let i = 0; i < trips.length; i++) {
+            if (trips[i].departure.toLocaleLowerCase() === departure) {
+                found = true;
+                console.log(`${trips[i].departure} ---> ${trips[i].destination} : ${trips[i].price} DH`);
+                console.log(`Départ : ${trips[i].departureTime}  --->  Arrivée : ${trips[i].arrivalTime}\n\n`)
+            }
+
+        }
+
+        if (!found) {
+            console.log(`Ville untrouvable! `)
+        }
+
+        PromptSync("continue?. ");
+        console.clear();
+        return;
+    } else if (choix === 2) {
+
+        const TripsCopy = trips;
+
+        for (let i = 0; i < TripsCopy.length - i; i++) {
+
+            for (let j = 0; j < TripsCopy.length - i - 1; j++) {
+                if (TripsCopy[j].price > TripsCopy[j + 1].price) {
+                    let temp = TripsCopy[j];
+                    TripsCopy[j] = TripsCopy[j + 1];
+                    TripsCopy[j + 1] = temp;
+                }
+
+            }
+        }
+
+
+        for (let i = 0; i < TripsCopy.length; i++) {
+                console.log(`${TripsCopy[i].departure} ---> ${TripsCopy[i].destination} : ${TripsCopy[i].price} DH`);
+                console.log(`Départ : ${TripsCopy[i].departureTime}  --->  Arrivée : ${TripsCopy[i].arrivalTime}\n\n`)
+
+        }
+
+
+        PromptSync("continue?. ");
+        console.clear();
+        return;
+    } else {
+        console.log(`faux choix! `);
+        PromptSync("Continue?. ")
+        return;
+    }
 
 }
 
