@@ -207,6 +207,7 @@ do {
     console.log("[5] Rechercher un ticket")
     console.log("[6] Filtrer les trajets")
     console.log("[7] Trier les trajets")
+    console.log("[8] Afficher les Statistiques")
     console.log("[0] Quitter le programme")
 
     choix = parseInt(PromptSync("Quelles votre choix?. "))
@@ -241,6 +242,9 @@ do {
             break;
         case 7:
             choix7TrierTrajets(trips);
+            break;
+        case 8:
+            choix8AfficherlesStatistiques(tickets);
             break;
         default:
             console.log("fault choix!!")
@@ -503,14 +507,79 @@ function choix7TrierTrajets() {
 
 }
 
-function choixX() {
+
+
+
+function choix8AfficherlesStatistiques(tickets) {
     console.clear()
 
+
+    let countVenduTickets = 0;
+    let sommePrixDesTickets = 0;
+
+    for (let i = 0; i < tickets.length; i++) {
+
+
+        if (tickets[i].status === "active") {
+            countVenduTickets++;
+            sommePrixDesTickets += tickets[i].price;
+
+        }
+
+    }
+
+    console.log(`Nombre total de tickets : ${countVenduTickets} `)
+    console.log(`Chiffre d'affaires total : ${sommePrixDesTickets} \n\n`)
+
+
+    if (countVenduTickets === 0) {
+        console.log(`AUCUN BILLET VENDU POUR L'INSTANT\n\n`)
+        PromptSync("continue?. ");
+        console.clear();
+        return;
+    }
+
+
+    //bubble sort the trips by the avaible seats
+    const TripsCopy = trips;
+
+    for (let i = 0; i < TripsCopy.length - i; i++) {
+
+        for (let j = 0; j < TripsCopy.length - i - 1; j++) {
+            if (TripsCopy[j].availableSeats > TripsCopy[j + 1].availableSeats) {
+                let temp = TripsCopy[j];
+                TripsCopy[j] = TripsCopy[j + 1];
+                TripsCopy[j + 1] = temp;
+            }
+
+        }
+    }
+
+    //print the smallst avaible seats trips
+    let countMostSoldTripTickets = 0;
+    for (let i = 0; i < TripsCopy.length; i++) {
+        if (TripsCopy[0].availableSeats === TripsCopy[i].availableSeats) {
+            console.log(`${TripsCopy[i].departure} ---> ${TripsCopy[i].destination} : ${TripsCopy[i].price} DH`);
+            console.log(`Départ : ${TripsCopy[i].departureTime}  --->  Arrivée : ${TripsCopy[i].arrivalTime}\n\n`)
+        }
+        else {
+            break;
+        }
+    }
+
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].tripId === TripsCopy[0].id) {
+            countMostSoldTripTickets++;
+        }
+    }
+
+
+
+
+    console.log(`${countMostSoldTripTickets} tickets vendus `)
     PromptSync("continue?. ");
     console.clear();
-
 }
-
 
 
 // Helpers
