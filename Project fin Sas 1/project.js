@@ -233,7 +233,7 @@ do {
 
             break;
         case 5:
-            choix5(trips);
+            choix5RechercherTicket();
 
             break;
         case 6:
@@ -406,7 +406,40 @@ Prix : ${trips[foundTripIndex].price} DH\n\n\n`)
 
     if (conferme === "y") {
         tickets[foundTicketIndexForCancel].status = "annuler"
+        trips[foundTripIndex].availableSeats++
         console.log(`Ticket annulé avec succès. `)
+
+    }
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
+function choix5RechercherTicket() {
+    console.clear()
+    console.log(`=== RECHERCHER UN TICKET === \n\n\n`)
+    let passager = PromptSync("Nom du passager : ")
+    let passagerFound = false;
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].passengerName === passager) {
+            let foundTripIndex = -1;
+            for (let j = 0; j < trips.length; j++) {
+                if (trips[j].id === tickets[i].tripId) {
+                    foundTripIndex = j;
+                }
+                break;
+
+            }
+            passagerFound = true;
+
+            printTicket(tickets[i], foundTripIndex);
+            break;
+        }
+    }
+
+    if (!passagerFound) {
+        console.log(`Passager introuvable!\n\n\n`)
 
     }
 
