@@ -482,9 +482,6 @@ function choix6FiltrerTrajets() {
     PromptSync("Continue?. ")
 }
 
-
-
-
 function choix7TrierTrajets() {
     console.clear()
 
