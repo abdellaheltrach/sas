@@ -326,11 +326,15 @@ function choix3AfficherLesTickets() {
         return;
     }
 
+    let countTickets = 0;
+
     for (let i = 0; i < tickets.length; i++) {
 
         if (tickets[i].status === "annuler") {
             continue;
         }
+
+        countTickets++;
 
         let foundTripIndex = -1;
         for (let j = 0; j < trips.length; j++) {
@@ -350,7 +354,10 @@ function choix3AfficherLesTickets() {
     Prix : ${trips[foundTripIndex].price} DH\n\n\n`)
     }
 
+    if (countTickets === 0) {
+        console.log(`AUCUN BILLET VENDU POUR L'INSTANT`)
 
+    }
 
     PromptSync("continue?. ");
     console.clear();
@@ -359,7 +366,6 @@ function choix3AfficherLesTickets() {
 function choix4AnnulerTicket() {
     console.clear()
     console.log(`=== ANNULER UN TICKET === \n\n\n`)
-
 
 
     if (tickets.length === 0) {
@@ -426,7 +432,9 @@ function choix5RechercherTicket() {
     let passager = PromptSync("Nom du passager : ")
     let passagerFound = false;
     for (let i = 0; i < tickets.length; i++) {
-        if (tickets[i].passengerName === passager) {
+
+
+        if (tickets[i].passengerName === passager && tickets[i].status !== "annuler") {
             let foundTripIndex = -1;
             for (let j = 0; j < trips.length; j++) {
                 if (trips[j].id === tickets[i].tripId) {
