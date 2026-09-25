@@ -224,7 +224,7 @@ function choix3AfficherLaListeDesCandidats() {
         let partiPolitique = PromptSync("Entre le parti politique : ")
 
         for (let i = candidats.length - 1; i >= 0; i--) {
-            if (candidats[i].partiPolitique.toLocaleLowerCase() === partiPolitique.toLocaleLowerCase()) {
+            if (candidats[i].partiPolitique.toUpperCase() === partiPolitique.toUpperCase()) {
                 found = true;
                 console.log(`\n`);
                 PrintCondidats(candidats[i])
@@ -248,7 +248,7 @@ function choix3AfficherLaListeDesCandidats() {
 function choix4VoterPourUnCandidat() {
     console.clear()
     console.log(`=== VOTER POUR UN CANDIDAT === \n\n\n`)
-    let electeursCin = PromptSync("Entre electeurs CIN : ").toLocaleLowerCase();
+    let electeursCin = PromptSync("Entre electeurs CIN : ").toUpperCase();
     if (IsCinUniqueInElecteurs(electeursCin)) {
 
         let found = false;
@@ -283,6 +283,52 @@ function choix4VoterPourUnCandidat() {
 function choix5ModifierLesInformationsDunCandidat() {
     console.clear()
     console.log(`=== MODIFIER LES INFORMATIONS DUN CANDIDAT === \n\n\n`)
+
+
+
+    let foundIndex = -1;
+
+    let candidatCin = PromptSync("Entre candidat CIN pour modifier : ")
+    for (let i = 0; i < candidats.length; i++) {
+        if (candidats[i].cin === candidatCin) {
+            foundIndex = i;
+        }
+    }
+
+
+    if (foundIndex !== -1) {
+        console.log(`\n\nCandidat info:\n\n`);
+        PrintCondidats(candidats[foundIndex]);
+
+        let choix = 0;
+        console.log("[1] Modifier le parti politique de candidat")
+        console.log("[2] Modifier l'âge d'un candidat\n\n")
+
+        choix = parseInt(PromptSync("Quelles votre choix?. "))
+
+        if (choix === 1) {
+
+            let newPartie = PromptSync("Entre le neveaux parti politique : ").toUpperCase();
+            candidats[foundIndex].partiPolitique = newPartie;
+
+            console.log(`Le candidat a été mis à jour avec succès.\n\n`);
+
+        } else if (choix === 2) {
+
+            let newAge = parseInt(PromptSync("Entre le neveaux parti politique : "))
+            candidats[foundIndex].age = newAge;
+            console.log(`Le candidat a été mis à jour avec succès.\n\n`);
+
+
+
+        } else {
+            console.log(`fault choix!!`);
+        }
+
+    } else {
+
+        console.log(`Candidat pas trouver! \n`);
+    }
 
 
     PromptSync("continue?. ");
@@ -326,7 +372,7 @@ function choix8StatistiquesDeLélection(tickets) {
 
 
 function AjouterUnCondidate() {
-    let condidateCin = PromptSync(`Enter Condidate CIN : `).toLocaleLowerCase();
+    let condidateCin = PromptSync(`Enter Condidate CIN : `).toUpperCase();
     //LOOP CIN IN CANDIDATE
     if (candidats.length !== 0) {
 
@@ -400,3 +446,6 @@ function IsCinUniqueInElecteurs(cin) {
     }
     return true;
 }
+
+
+
