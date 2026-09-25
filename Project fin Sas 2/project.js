@@ -9,7 +9,7 @@ const candidats = [
         prenom: "eltrach",
         partiPolitique: "Independant",
         age: 35,
-        electeurs: ["1589", "5879", "5589", "8889", "7412"]
+        electeurs: []
     },
     {
         cin: "JB45678",
@@ -248,11 +248,30 @@ function choix3AfficherLaListeDesCandidats() {
 function choix4VoterPourUnCandidat() {
     console.clear()
     console.log(`=== VOTER POUR UN CANDIDAT === \n\n\n`)
-    let electeursCin = PromptSync("Entre electeurs CIN : ")
+    let electeursCin = PromptSync("Entre electeurs CIN : ").toLocaleLowerCase();
     if (IsCinUniqueInElecteurs(electeursCin)) {
-        console.log(`unique`);
+
+        let found = false;
+
+        let candidatCin = PromptSync("Entre candidat CIN : ")
+        for (let i = 0; i < candidats.length; i++) {
+            if (candidats[i].cin === candidatCin) {
+                found = true;
+                candidats[i].electeurs.push(candidatCin)
+
+                console.log(`Vote enregistré ! \n\n\n`);
+
+            }
+        }
+
+
+        if (!found) {
+            console.log(`Candidat pas trouver! \n`);
+        }
+
     } else {
-        console.log(`not unique`);
+        console.log(`Electeur est deja vote.`);
+
 
     }
 
@@ -307,7 +326,7 @@ function choix8StatistiquesDeLélection(tickets) {
 
 
 function AjouterUnCondidate() {
-    let condidateCin = PromptSync(`Enter votre CIN : `);
+    let condidateCin = PromptSync(`Enter Condidate CIN : `).toLocaleLowerCase();
     //LOOP CIN IN CANDIDATE
     if (candidats.length !== 0) {
 
