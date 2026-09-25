@@ -417,10 +417,33 @@ function choix8StatistiquesDeLélection() {
     console.clear()
     console.log(`=== STATISTIQUES DE L'ÉLECTION === \n\n\n`)
 
-    console.log(`Nombre total de candidats : ${candidats.length}`);
-    console.log(`Nombre total de votes exprimés : ${totalVotes()}`);
-    PrintTop3Candidats();
-    ShowPartiPolitiqueByNumberOfCandidats();
+    console.log("[1] Afficher le nombre total de candidats");
+    console.log("[2] Afficher le nombre total de votes exprimés");
+    console.log("[3] Afficher le Top 3 des candidats ayant le plus de votes");
+    console.log("[4] Afficher le nombre de candidats par parti politique");
+
+    let choix = parseInt(PromptSync("Quel est votre choix ? "));
+    console.log("\n");
+
+    if (choix === 1) {
+        console.log(`Nombre total de candidats : ${candidats.length}`);
+
+    } else if (choix === 2) {
+        console.log(`Nombre total de votes exprimés : ${totalVotes()}`);
+
+    } else if (choix === 3) {
+        PrintTop3Candidats();
+
+    } else if (choix === 4) {
+        ShowPartiPolitiqueByNumberOfCandidats();
+
+    } else {
+        console.log("Fault choix!!");
+    }
+
+    console.log("\n\n");
+
+
     PromptSync("continue?. ");
     console.clear();
 }
@@ -562,8 +585,7 @@ function ShowPartiPolitiqueByNumberOfCandidats() {
     for (let i = 0; i < pariesPolitques.length; i++) {
         let count = 0;
         for (let j = 0; j < candidats.length; j++) {
-            if(candidats[j].partiPolitique ===pariesPolitques[i] )
-            {
+            if (candidats[j].partiPolitique === pariesPolitques[i]) {
                 count++;
             }
         }
