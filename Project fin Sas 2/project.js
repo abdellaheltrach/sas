@@ -157,7 +157,7 @@ function choix1AjouteNouveauCandidat() {
     console.clear()
     console.log(`=== AJOUTE NOUVEAU CANDIDAT === \n\n\n`)
 
-    let isAdded = AjouterUnCondidate();
+    let isAdded = AjouterUnCandidate();
 
     if (isAdded) {
         console.log(`Candidat ajouté avec succès\n`)
@@ -177,13 +177,13 @@ function choix2AjouterPlusieursCandidatsALaFois() {
     console.clear()
     console.log(`=== AJOUTER PLUSIEURS CANDIDATS === \n\n\n`)
 
-    let condidatesNumber = parseInt(PromptSync(`Saisissez le nombre de candidats que vous souhaitez ajouter : `));
+    let CandidatesNumber = parseInt(PromptSync(`Saisissez le nombre de candidats que vous souhaitez ajouter : `));
 
-    for (let i = 1; i <= condidatesNumber; i++) {
+    for (let i = 1; i <= CandidatesNumber; i++) {
 
         console.log(`\nEntrez le numéro de candidat ${i}`);
 
-        let isAdded = AjouterUnCondidate();
+        let isAdded = AjouterUnCandidate();
         if (isAdded) {
             console.log(`\nCandidat ajouté avec succès\n`)
 
@@ -212,14 +212,14 @@ function choix3AfficherLaListeDesCandidats() {
     choix = parseInt(PromptSync("Quelles votre choix?. "))
 
     if (choix === 1) {
-        BubbleSortCondidats();
+        BubbleSortCandidats();
         for (let i = candidats.length - 1; i >= 0; i--) {
-            PrintCondidats(candidats[i])
+            PrintCandidats(candidats[i])
             console.log(`\n\n`);
         }
 
     } else if (choix === 2) {
-        BubbleSortCondidats();
+        BubbleSortCandidats();
         let found = false;
         let partiPolitique = PromptSync("Entre le parti politique : ")
 
@@ -227,7 +227,7 @@ function choix3AfficherLaListeDesCandidats() {
             if (candidats[i].partiPolitique.toUpperCase() === partiPolitique.toUpperCase()) {
                 found = true;
                 console.log(`\n`);
-                PrintCondidats(candidats[i])
+                PrintCandidats(candidats[i])
                 console.log(`\n`);
             }
         }
@@ -300,7 +300,7 @@ function choix5ModifierLesInformationsDunCandidat() {
 
     if (foundIndex !== -1) {
         console.log(`\n\nCandidat info:\n\n`);
-        PrintCondidats(candidats[foundIndex]);
+        PrintCandidats(candidats[foundIndex]);
 
         let choix = 0;
         console.log("[1] Modifier le parti politique de candidat")
@@ -356,12 +356,12 @@ function choix6SupprimerUnCandidat() {
 
     if (foundIndex !== -1) {
         console.log(`\n\nCandidat info:\n\n`);
-        PrintCondidats(candidats[foundIndex]);
+        PrintCandidats(candidats[foundIndex]);
 
         let conferm = PromptSync(`Supprimer ce candidat [o/n]?`).toLocaleLowerCase();
 
         if (conferm === "o") {
-            DeleteCondidate(foundIndex);
+            DeleteCandidate(foundIndex);
             console.log(`\nCandidat supprime avec succes! \n`);
         } else {
             console.log(`\nLe candidat n'a pas supprime! \n`);
@@ -396,7 +396,7 @@ function choix7RechercherDesCandidats() {
 
     if (foundIndex !== -1) {
         console.log(`\n\nCandidat info:\n\n`);
-        PrintCondidats(candidats[foundIndex]);
+        PrintCandidats(candidats[foundIndex]);
 
     } else {
         console.log(`Candidat pas trouver! \n`);
@@ -419,7 +419,7 @@ function choix8StatistiquesDeLélection() {
 
     console.log(`Nombre total de candidats : ${candidats.length}`);
     console.log(`Nombre total de votes exprimés : ${totalVotes()}`);
-    // console.log(`Top ${rank} : ${name} (${party})`);
+    PrintTop3Candidats();
     // console.log(`Parti ${party} : ${count} candidat(s)`);
 
     PromptSync("continue?. ");
@@ -430,13 +430,13 @@ function choix8StatistiquesDeLélection() {
 // Helpers
 
 
-function AjouterUnCondidate() {
-    let condidateCin = PromptSync(`Enter Condidate CIN : `).toUpperCase();
+function AjouterUnCandidate() {
+    let candidateCin = PromptSync(`Enter Candidate CIN : `).toUpperCase();
     //LOOP CIN IN CANDIDATE
     if (candidats.length !== 0) {
 
         for (let i = 0; i < candidats.length; i++) {
-            if (candidats[i].cin === condidateCin) {
+            if (candidats[i].cin === candidateCin) {
                 return false;
             }
         }
@@ -444,21 +444,21 @@ function AjouterUnCondidate() {
     }
 
 
-    let condidatNom = PromptSync(`Enter votre nom : `);
-    let CondidatPrenom = PromptSync(`Enter votre prenom : `);
-    let condidatPartiPolitique = PromptSync(`Enter votre partiPolitique : `);
-    let condidatAge = parseInt(PromptSync(`Enter votre age : `));
+    let CandidatNom = PromptSync(`Enter votre nom : `);
+    let CandidatPrenom = PromptSync(`Enter votre prenom : `);
+    let CandidatPartiPolitique = PromptSync(`Enter votre partiPolitique : `);
+    let CandidatAge = parseInt(PromptSync(`Enter votre age : `));
 
-    if (condidatPartiPolitique === "") {
-        condidatPartiPolitique = "Independant";
+    if (CandidatPartiPolitique === "") {
+        CandidatPartiPolitique = "Independant";
     }
 
     let candidat = {
-        cin: condidateCin,
-        nom: condidatNom,
-        prenom: CondidatPrenom,
-        partiPolitique: condidatPartiPolitique,
-        age: condidatAge,
+        cin: candidateCin,
+        nom: CandidatNom,
+        prenom: CandidatPrenom,
+        partiPolitique: CandidatPartiPolitique,
+        age: CandidatAge,
         electeurs: []
     };
 
@@ -468,7 +468,7 @@ function AjouterUnCondidate() {
 }
 
 
-function BubbleSortCondidats() {
+function BubbleSortCandidats() {
 
 
     for (let i = 0; i < candidats.length; i++) {
@@ -484,7 +484,7 @@ function BubbleSortCondidats() {
 
 }
 
-function PrintCondidats(candidat) {
+function PrintCandidats(candidat) {
     console.log(`Candidat Identifiant: ${candidat.cin}`)
     console.log(`Candidat nom et prénom: ${candidat.nom} ${candidat.prenom}`)
     console.log(`Candidat Parti politique: ${candidat.partiPolitique}`)
@@ -507,9 +507,9 @@ function IsCinUniqueInElecteurs(cin) {
 }
 
 
-function DeleteCondidate(condidateIndex) {
+function DeleteCandidate(candidateIndex) {
 
-    candidats[condidateIndex] = candidats[candidats.length - 1];
+    candidats[candidateIndex] = candidats[candidats.length - 1];
 
     candidats.length--;
 
@@ -517,13 +517,23 @@ function DeleteCondidate(condidateIndex) {
 
 //stats
 
-function totalVotes()
-{
+function totalVotes() {
     let somme = 0;
     for (let i = 0; i < candidats.length; i++) {
         somme += candidats[i].electeurs.length;
-        
+
     }
 
     return somme;
+}
+
+
+function PrintTop3Candidats() {
+    BubbleSortCandidats();
+    let count = 1;
+    for (let i = candidats.length - 1; i >= candidats.length - 3; i--) {
+        console.log(`Top ${count} : ${candidats[i].nom + " " + candidats[i].prenom} represent --${candidats[i].partiPolitique}-- avec total votes ${candidats[i].electeurs.length} `);
+
+        count++;
+    }
 }
