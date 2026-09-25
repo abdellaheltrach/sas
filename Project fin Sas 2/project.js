@@ -97,6 +97,25 @@ function choix2AjouterPlusieursCandidatsALaFois(trips) {
     console.clear()
     console.log(`=== AJOUTER PLUSIEURS CANDIDATS === \n\n\n`)
 
+    let condidatesNumber = parseInt(PromptSync(`Saisissez le nombre de candidats que vous souhaitez ajouter : `));
+
+    for (let i = 1; i <= condidatesNumber; i++) {
+
+        console.log(`\nEntrez le numéro de candidat ${i}`);
+
+        let isAdded = AjouterUnCondidate();
+        if (isAdded) {
+            console.log(`\nCandidat ajouté avec succès\n`)
+
+        } else {
+            console.log(`\nLe CIN du candidat est déjà enregistré dans la liste des candidats.\n`)
+
+        }
+
+    }
+
+
+
     PromptSync("continue?. ");
     console.clear();
 
