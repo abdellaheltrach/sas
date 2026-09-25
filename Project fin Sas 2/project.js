@@ -381,6 +381,30 @@ function choix7RechercherDesCandidats() {
     console.log(`=== RECHERCHER DES CANDIDATS === \n\n\n`)
 
 
+
+    let foundIndex = -1;
+
+    let candidatnom = PromptSync("Entre candidat nom : ")
+    for (let i = 0; i < candidats.length; i++) {
+        if (candidats[i].nom === candidatnom) {
+            foundIndex = i;
+            break;
+        }
+    }
+
+
+
+    if (foundIndex !== -1) {
+        console.log(`\n\nCandidat info:\n\n`);
+        PrintCondidats(candidats[foundIndex]);
+
+    } else {
+        console.log(`Candidat pas trouver! \n`);
+
+    }
+
+
+
     PromptSync("continue?. ");
     console.clear();
 
