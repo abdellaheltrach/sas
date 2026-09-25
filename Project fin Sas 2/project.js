@@ -2,7 +2,7 @@ const PromptSync = require("prompt-sync")();
 let choix = 0;
 
 
-const candidats = [];
+const condidats = [];
 
 
 do {
@@ -76,6 +76,16 @@ do {
 function choix1AjouteNouveauCandidat(trips) {
     console.clear()
     console.log(`=== AJOUTE NOUVEAU CANDIDAT === \n\n\n`)
+
+    let isAdded = AjouterUnCondidate();
+
+    if (isAdded) {
+        console.log(`Candidat ajouté avec succès\n`)
+
+    } else {
+        console.log(`Le CIN du candidat est déjà enregistré dans la liste des candidats.\n`)
+
+    }
 
 
     PromptSync("continue?. ");
@@ -154,3 +164,41 @@ function choix8StatistiquesDeLélection(tickets) {
 
 
 // Helpers
+
+
+function AjouterUnCondidate() {
+    let condidateCin = PromptSync(`Enter votre CIN : `);
+    //LOOP CIN IN CANDIDATE
+    if (condidats.length !== 0) {
+
+        for (let i = 0; i < condidats.length; i++) {
+            if (condidats[i].cin === condidateCin) {
+                return false;
+            }
+        }
+
+    }
+
+
+    let condidateNom = PromptSync(`Enter votre nom : `);
+    let CondidatePrenom = PromptSync(`Enter votre prenom : `);
+    let condidatePartiPolitique = PromptSync(`Enter votre partiPolitique : `);
+    let condidateAge = parseInt(PromptSync(`Enter votre age : `));
+
+    if (condidatePartiPolitique === "") {
+        condidatePartiPolitique = "Indépendant";
+    }
+
+    let candidat = {
+        cin: condidateCin,
+        nom: condidateNom,
+        prenom: CondidatePrenom,
+        partiPolitique: condidatePartiPolitique,
+        age: condidateAge,
+        electeurs: []
+    };
+
+    condidats.push(candidat)
+
+    return true;
+}
