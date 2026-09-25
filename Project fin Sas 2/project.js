@@ -127,7 +127,7 @@ function choix3AfficherLaListeDesCandidats() {
 
     let choix = 0;
     console.log("[1] Afficher la liste des candidats par les nombre de votes")
-    console.log("[2] Ajouter plusieurs candidats à la fois")
+    console.log("[2] Afficher uniquement les candidats d'un parti politique spécifique")
 
     choix = parseInt(PromptSync("Quelles votre choix?. "))
 
@@ -233,4 +233,22 @@ function AjouterUnCondidate() {
     condidats.push(candidat)
 
     return true;
+}
+
+
+function BubbleSortArr(array , key) {
+    
+    
+    for (let i = 0; i < array.length - i; i++) {
+
+        for (let j = 0; j < array.length - i - 1; j++) {
+            if(array[j][key]>array[j+1][key])
+            {
+                let temp = array[j];
+                array[j] = array[j+1];
+                array[j+1] = temp;
+            }
+        }
+    }
+    
 }
