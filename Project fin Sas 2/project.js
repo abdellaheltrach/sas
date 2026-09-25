@@ -420,8 +420,7 @@ function choix8StatistiquesDeLélection() {
     console.log(`Nombre total de candidats : ${candidats.length}`);
     console.log(`Nombre total de votes exprimés : ${totalVotes()}`);
     PrintTop3Candidats();
-    // console.log(`Parti ${party} : ${count} candidat(s)`);
-
+    ShowPartiPolitiqueByNumberOfCandidats();
     PromptSync("continue?. ");
     console.clear();
 }
@@ -535,5 +534,39 @@ function PrintTop3Candidats() {
         console.log(`Top ${count} : ${candidats[i].nom + " " + candidats[i].prenom} represent --${candidats[i].partiPolitique}-- avec total votes ${candidats[i].electeurs.length} `);
 
         count++;
+    }
+}
+
+
+function ShowPartiPolitiqueByNumberOfCandidats() {
+
+    const pariesPolitques = [];
+    for (let i = 0; i < candidats.length; i++) {
+
+        let found = false;
+
+        for (let j = 0; j < pariesPolitques.length; j++) {
+            if (candidats[i].partiPolitique === pariesPolitques[j]) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            pariesPolitques.push((candidats[i].partiPolitique))
+        }
+
+    }
+
+
+
+    for (let i = 0; i < pariesPolitques.length; i++) {
+        let count = 0;
+        for (let j = 0; j < candidats.length; j++) {
+            if(candidats[j].partiPolitique ===pariesPolitques[i] )
+            {
+                count++;
+            }
+        }
+        console.log(`Parti ${pariesPolitques[i]} : ${count} candidat(s)`);
     }
 }
