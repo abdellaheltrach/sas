@@ -292,6 +292,8 @@ function choix5ModifierLesInformationsDunCandidat() {
     for (let i = 0; i < candidats.length; i++) {
         if (candidats[i].cin === candidatCin) {
             foundIndex = i;
+            break;
+
         }
     }
 
@@ -340,7 +342,35 @@ function choix6SupprimerUnCandidat() {
     console.clear()
     console.log(`=== SUPPRIMER UN CANDIDAT === \n\n\n`)
 
+    let foundIndex = -1;
 
+    let candidatCin = PromptSync("Entre candidat CIN pour suprimer : ")
+    for (let i = 0; i < candidats.length; i++) {
+        if (candidats[i].cin === candidatCin) {
+            foundIndex = i;
+            break;
+        }
+    }
+
+
+
+    if (foundIndex !== -1) {
+        console.log(`\n\nCandidat info:\n\n`);
+        PrintCondidats(candidats[foundIndex]);
+
+        let conferm = PromptSync(`delete this candidate [y/n]?`).toLocaleLowerCase();
+
+        if (conferm === "y") {
+
+
+        } else {
+
+        }
+
+    } else {
+        console.log(`Candidat pas trouver! \n`);
+
+    }
 
     PromptSync("Continue?. ")
 }
@@ -448,4 +478,11 @@ function IsCinUniqueInElecteurs(cin) {
 }
 
 
+function DeleteCondidate(condidateIndex) {
+
+    candidats[condidateIndex] = candidats[candidats.length - 1];
+
+    candidats.length--;
+
+}
 
