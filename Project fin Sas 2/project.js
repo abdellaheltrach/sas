@@ -113,32 +113,32 @@ do {
             repeat = false;
             break;
         case 1:
-            choix1AjouteNouveauCandidat();
+            AjouteNouveauCandidat();
             break;
         case 2:
-            choix2AjouterPlusieursCandidatsALaFois();
+            AjouterPlusieursCandidatsALaFois();
 
             break;
         case 3:
-            choix3AfficherLaListeDesCandidats();
+            AfficherLaListeDesCandidats();
 
             break;
         case 4:
-            choix4VoterPourUnCandidat();
+            VoterPourUnCandidat();
 
             break;
         case 5:
-            choix5ModifierLesInformationsDunCandidat();
+            ModifierLesInformationsDunCandidat();
 
             break;
         case 6:
-            choix6SupprimerUnCandidat();
+            SupprimerUnCandidat();
             break;
         case 7:
-            choix7RechercherDesCandidats();
+            RechercherDesCandidats();
             break;
         case 8:
-            choix8StatistiquesDeLélection();
+            StatistiquesDeLélection();
             break;
         default:
             console.log("fault choix!!")
@@ -153,7 +153,7 @@ do {
 
 
 
-function choix1AjouteNouveauCandidat() {
+function AjouteNouveauCandidat() {
     console.clear()
     console.log(`=== AJOUTE NOUVEAU CANDIDAT === \n\n\n`)
 
@@ -173,7 +173,7 @@ function choix1AjouteNouveauCandidat() {
 
 }
 
-function choix2AjouterPlusieursCandidatsALaFois() {
+function AjouterPlusieursCandidatsALaFois() {
     console.clear()
     console.log(`=== AJOUTER PLUSIEURS CANDIDATS === \n\n\n`)
 
@@ -200,7 +200,7 @@ function choix2AjouterPlusieursCandidatsALaFois() {
     console.clear();
 
 }
-function choix3AfficherLaListeDesCandidats() {
+function AfficherLaListeDesCandidats() {
     console.clear()
     console.log(`=== LISTE DES CANDIDATS === \n\n\n`)
 
@@ -245,7 +245,7 @@ function choix3AfficherLaListeDesCandidats() {
     console.clear();
 
 }
-function choix4VoterPourUnCandidat() {
+function VoterPourUnCandidat() {
     console.clear()
     console.log(`=== VOTER POUR UN CANDIDAT === \n\n\n`)
     let electeursCin = PromptSync("Entre electeurs CIN : ").toUpperCase();
@@ -257,7 +257,7 @@ function choix4VoterPourUnCandidat() {
         for (let i = 0; i < candidats.length; i++) {
             if (candidats[i].cin === candidatCin) {
                 found = true;
-                candidats[i].electeurs.push(candidatCin)
+                candidats[i].electeurs.push(electeursCin)
 
                 console.log(`Vote enregistré ! \n\n\n`);
 
@@ -270,7 +270,7 @@ function choix4VoterPourUnCandidat() {
         }
 
     } else {
-        console.log(`Electeur est deja vote.`);
+        console.log(`Vous avez déjà voté et vous n'avez pas le droit de modifier votre vote ni de voter à nouveau.`);
 
 
     }
@@ -280,7 +280,7 @@ function choix4VoterPourUnCandidat() {
 
 }
 
-function choix5ModifierLesInformationsDunCandidat() {
+function ModifierLesInformationsDunCandidat() {
     console.clear()
     console.log(`=== MODIFIER LES INFORMATIONS DUN CANDIDAT === \n\n\n`)
 
@@ -338,7 +338,7 @@ function choix5ModifierLesInformationsDunCandidat() {
 
 }
 
-function choix6SupprimerUnCandidat() {
+function SupprimerUnCandidat() {
     console.clear()
     console.log(`=== SUPPRIMER UN CANDIDAT === \n\n\n`)
 
@@ -376,7 +376,7 @@ function choix6SupprimerUnCandidat() {
     PromptSync("Continue?. ")
 }
 
-function choix7RechercherDesCandidats() {
+function RechercherDesCandidats() {
     console.clear()
     console.log(`=== RECHERCHER DES CANDIDATS === \n\n\n`)
 
@@ -413,7 +413,7 @@ function choix7RechercherDesCandidats() {
 
 
 
-function choix8StatistiquesDeLélection() {
+function StatistiquesDeLélection() {
     console.clear()
     console.log(`=== STATISTIQUES DE L'ÉLECTION === \n\n\n`)
 
