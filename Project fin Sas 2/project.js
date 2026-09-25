@@ -2,7 +2,7 @@ const PromptSync = require("prompt-sync")();
 let choix = 0;
 
 
-const condidats = [
+const candidats = [
     {
         cin: "1234",
         nom: "abdellah",
@@ -213,8 +213,8 @@ function choix3AfficherLaListeDesCandidats() {
 
     if (choix === 1) {
         BubbleSortCondidats();
-        for (let i = condidats.length - 1; i >= 0; i--) {
-            PrintCondidats(condidats[i])
+        for (let i = candidats.length - 1; i >= 0; i--) {
+            PrintCondidats(candidats[i])
             console.log(`\n\n`);
         }
 
@@ -223,11 +223,11 @@ function choix3AfficherLaListeDesCandidats() {
         let found = false;
         let partiPolitique = PromptSync("Entre le parti politique : ")
 
-        for (let i = condidats.length - 1; i >= 0; i--) {
-            if (condidats[i].partiPolitique.toLocaleLowerCase() === partiPolitique.toLocaleLowerCase()) {
+        for (let i = candidats.length - 1; i >= 0; i--) {
+            if (candidats[i].partiPolitique.toLocaleLowerCase() === partiPolitique.toLocaleLowerCase()) {
                 found = true;
                 console.log(`\n`);
-                PrintCondidats(condidats[i])
+                PrintCondidats(candidats[i])
                 console.log(`\n`);
             }
         }
@@ -248,7 +248,13 @@ function choix3AfficherLaListeDesCandidats() {
 function choix4VoterPourUnCandidat() {
     console.clear()
     console.log(`=== VOTER POUR UN CANDIDAT === \n\n\n`)
+    let electeursCin = PromptSync("Entre electeurs CIN : ")
+    if (IsCinUniqueInElecteurs(electeursCin)) {
+        console.log(`unique`);
+    } else {
+        console.log(`not unique`);
 
+    }
 
     PromptSync("continue?. ");
     console.clear();
@@ -303,10 +309,10 @@ function choix8StatistiquesDeLélection(tickets) {
 function AjouterUnCondidate() {
     let condidateCin = PromptSync(`Enter votre CIN : `);
     //LOOP CIN IN CANDIDATE
-    if (condidats.length !== 0) {
+    if (candidats.length !== 0) {
 
-        for (let i = 0; i < condidats.length; i++) {
-            if (condidats[i].cin === condidateCin) {
+        for (let i = 0; i < candidats.length; i++) {
+            if (candidats[i].cin === condidateCin) {
                 return false;
             }
         }
@@ -332,7 +338,7 @@ function AjouterUnCondidate() {
         electeurs: []
     };
 
-    condidats.push(candidat)
+    candidats.push(candidat)
 
     return true;
 }
@@ -341,13 +347,13 @@ function AjouterUnCondidate() {
 function BubbleSortCondidats() {
 
 
-    for (let i = 0; i < condidats.length - i; i++) {
+    for (let i = 0; i < candidats.length; i++) {
 
-        for (let j = 0; j < condidats.length - i - 1; j++) {
-            if (condidats[j].electeurs.length > condidats[j + 1].electeurs.length) {
-                let temp = condidats[j];
-                condidats[j] = condidats[j + 1];
-                condidats[j + 1] = temp;
+        for (let j = 0; j < candidats.length - i - 1; j++) {
+            if (candidats[j].electeurs.length > candidats[j + 1].electeurs.length) {
+                let temp = candidats[j];
+                candidats[j] = candidats[j + 1];
+                candidats[j + 1] = temp;
             }
         }
     }
@@ -362,4 +368,16 @@ function PrintCondidats(candidat) {
     console.log(`Nombre de votes: ${candidat.electeurs.length}`)
 
 
+}
+
+function IsCinUniqueInElecteurs(cin) {
+    for (let i = 0; i < candidats.length; i++) {
+        for (let j = 0; j < candidats[i].electeurs.length; j++) {
+            if (candidats[i].electeurs[j] === cin) {
+                return false;
+            }
+        }
+
+    }
+    return true;
 }
