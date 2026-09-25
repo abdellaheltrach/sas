@@ -2,13 +2,16 @@ const PromptSync = require("prompt-sync")();
 let choix = 0;
 
 
+const candidats = [];
+
+
 do {
     console.clear();
 
 
     console.log(
         `================================= 
-           Gestion des Élections 
+       Gestion des Élections 
 ================================= `)
 
     console.log("[1] Ajouter un nouveau candidat")
@@ -65,14 +68,14 @@ do {
 
 
 
-} while (choix !== 0 );
+} while (choix !== 0);
 
 
 
 
 function choix1AjouteNouveauCandidat(trips) {
     console.clear()
-    console.log(`=== TRAJETS DISPONIBLES === \n\n\n`)
+    console.log(`=== AJOUTE NOUVEAU CANDIDAT === \n\n\n`)
 
 
     PromptSync("continue?. ");
@@ -82,17 +85,17 @@ function choix1AjouteNouveauCandidat(trips) {
 
 function choix2AjouterPlusieursCandidatsALaFois(trips) {
     console.clear()
-    console.log(`=== ACHETER UN TICKET === \n\n\n`)
-  
+    console.log(`=== AJOUTER PLUSIEURS CANDIDATS === \n\n\n`)
+
     PromptSync("continue?. ");
     console.clear();
 
 }
 function choix3AfficherLaListeDesCandidats() {
     console.clear()
-    console.log(`=== TICKETS === \n\n\n`)
+    console.log(`=== LISTE DES CANDIDATS === \n\n\n`)
 
-  
+
 
     PromptSync("continue?. ");
     console.clear();
@@ -100,7 +103,7 @@ function choix3AfficherLaListeDesCandidats() {
 }
 function choix4VoterPourUnCandidat() {
     console.clear()
-    console.log(`=== ANNULER UN TICKET === \n\n\n`)
+    console.log(`=== VOTER POUR UN CANDIDAT === \n\n\n`)
 
 
     PromptSync("continue?. ");
@@ -110,8 +113,8 @@ function choix4VoterPourUnCandidat() {
 
 function choix5ModifierLesInformationsDunCandidat() {
     console.clear()
-    console.log(`=== RECHERCHER UN TICKET === \n\n\n`)
- 
+    console.log(`=== MODIFIER LES INFORMATIONS DUN CANDIDAT === \n\n\n`)
+
 
     PromptSync("continue?. ");
     console.clear();
@@ -120,16 +123,18 @@ function choix5ModifierLesInformationsDunCandidat() {
 
 function choix6SupprimerUnCandidat() {
     console.clear()
+    console.log(`=== SUPPRIMER UN CANDIDAT === \n\n\n`)
 
-   
+
 
     PromptSync("Continue?. ")
 }
 
 function choix7RechercherDesCandidats() {
     console.clear()
+    console.log(`=== RECHERCHER DES CANDIDATS === \n\n\n`)
 
-   
+
     PromptSync("continue?. ");
     console.clear();
 
