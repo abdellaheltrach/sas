@@ -358,12 +358,13 @@ function choix6SupprimerUnCandidat() {
         console.log(`\n\nCandidat info:\n\n`);
         PrintCondidats(candidats[foundIndex]);
 
-        let conferm = PromptSync(`delete this candidate [y/n]?`).toLocaleLowerCase();
+        let conferm = PromptSync(`Supprimer ce candidat [o/n]?`).toLocaleLowerCase();
 
-        if (conferm === "y") {
-
-
+        if (conferm === "o") {
+            DeleteCondidate(foundIndex);
+            console.log(`\nCandidat supprime avec succes! \n`);
         } else {
+            console.log(`\nLe candidat n'a pas supprime! \n`);
 
         }
 
