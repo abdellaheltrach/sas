@@ -1,0 +1,151 @@
+const PromptSync = require("prompt-sync")();
+let choix = 0;
+
+
+do {
+    console.clear();
+
+
+    console.log(
+        `================================= 
+           Gestion des Élections 
+================================= `)
+
+    console.log("[1] Ajouter un nouveau candidat")
+    console.log("[2] Ajouter plusieurs candidats à la fois")
+    console.log("[3] Afficher la liste des candidats")
+    console.log("[4] Voter pour un candidat")
+    console.log("[5] Modifier les informations d'un candidat")
+    console.log("[6] Supprimer un candidat ")
+    console.log("[7] Rechercher des candidats")
+    console.log("[8] Statistiques de l'élection")
+    console.log("[0] Quitter le programme")
+
+    choix = parseInt(PromptSync("Quelles votre choix?. "))
+
+
+
+    switch (choix) {
+        case 0:
+            repeat = false;
+            break;
+        case 1:
+            choix1AjouteNouveauCandidat();
+            break;
+        case 2:
+            choix2AjouterPlusieursCandidatsALaFois();
+
+            break;
+        case 3:
+            choix3AfficherLaListeDesCandidats();
+
+            break;
+        case 4:
+            choix4VoterPourUnCandidat();
+
+            break;
+        case 5:
+            choix5ModifierLesInformationsDunCandidat();
+
+            break;
+        case 6:
+            choix6SupprimerUnCandidat();
+            break;
+        case 7:
+            choix7RechercherDesCandidats();
+            break;
+        case 8:
+            choix8StatistiquesDeLélection();
+            break;
+        default:
+            console.log("fault choix!!")
+
+            break;
+    }
+
+
+
+} while (choix !== 0 );
+
+
+
+
+function choix1AjouteNouveauCandidat(trips) {
+    console.clear()
+    console.log(`=== TRAJETS DISPONIBLES === \n\n\n`)
+
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
+function choix2AjouterPlusieursCandidatsALaFois(trips) {
+    console.clear()
+    console.log(`=== ACHETER UN TICKET === \n\n\n`)
+  
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+function choix3AfficherLaListeDesCandidats() {
+    console.clear()
+    console.log(`=== TICKETS === \n\n\n`)
+
+  
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+function choix4VoterPourUnCandidat() {
+    console.clear()
+    console.log(`=== ANNULER UN TICKET === \n\n\n`)
+
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
+function choix5ModifierLesInformationsDunCandidat() {
+    console.clear()
+    console.log(`=== RECHERCHER UN TICKET === \n\n\n`)
+ 
+
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
+function choix6SupprimerUnCandidat() {
+    console.clear()
+
+   
+
+    PromptSync("Continue?. ")
+}
+
+function choix7RechercherDesCandidats() {
+    console.clear()
+
+   
+    PromptSync("continue?. ");
+    console.clear();
+
+}
+
+
+
+
+function choix8StatistiquesDeLélection(tickets) {
+    console.clear()
+
+
+
+    PromptSync("continue?. ");
+    console.clear();
+}
+
+
+// Helpers
