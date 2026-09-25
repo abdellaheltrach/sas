@@ -2,8 +2,88 @@ const PromptSync = require("prompt-sync")();
 let choix = 0;
 
 
-const condidats = [];
-
+const condidats = [
+    {
+        cin: "1234",
+        nom: "abdellah",
+        prenom: "eltrach",
+        partiPolitique: "Independant",
+        age: 35,
+        electeurs: ["1589", "5879", "5589", "8889", "7412"]
+    },
+    {
+        cin: "JB45678",
+        nom: "el amrani",
+        prenom: "fatima",
+        partiPolitique: "RNI",
+        age: 42,
+        electeurs: ["2365", "4125", "9632", "1478"]
+    },
+    {
+        cin: "M589632",
+        nom: "benjelloun",
+        prenom: "mehdi",
+        partiPolitique: "PAM",
+        age: 38,
+        electeurs: ["8523", "7410", "3698"]
+    },
+    {
+        cin: "HA98765",
+        nom: "tazi",
+        prenom: "karim",
+        partiPolitique: "Istiqlal",
+        age: 50,
+        electeurs: ["1122", "3344", "5566", "7788", "9900", "2233"]
+    },
+    {
+        cin: "EE12345",
+        nom: "chakir",
+        prenom: "amina",
+        partiPolitique: "USFP",
+        age: 45,
+        electeurs: ["4455", "6677", "8899"]
+    },
+    {
+        cin: "BK85214",
+        nom: "zerouali",
+        prenom: "youssef",
+        partiPolitique: "MP",
+        age: 31,
+        electeurs: ["1239", "8745", "6321", "4587"]
+    },
+    {
+        cin: "G741258",
+        nom: "bennani",
+        prenom: "sara",
+        partiPolitique: "PJD",
+        age: 46,
+        electeurs: ["9871", "6542", "3215", "1597", "7531"]
+    },
+    {
+        cin: "PA96325",
+        nom: "idrissi",
+        prenom: "hamza",
+        partiPolitique: "PPS",
+        age: 39,
+        electeurs: ["2468", "1357", "3692"]
+    },
+    {
+        cin: "LE35715",
+        nom: "mansouri",
+        prenom: "khadija",
+        partiPolitique: "Independant",
+        age: 53,
+        electeurs: ["7894", "1230", "4561", "7893"]
+    },
+    {
+        cin: "QB15975",
+        nom: "tahiri",
+        prenom: "omar",
+        partiPolitique: "UC",
+        age: 40,
+        electeurs: ["3214", "6547", "9874", "1593", "7539", "8526"]
+    }
+];
 
 do {
     console.clear();
@@ -127,13 +207,35 @@ function choix3AfficherLaListeDesCandidats() {
 
     let choix = 0;
     console.log("[1] Afficher la liste des candidats par les nombre de votes")
-    console.log("[2] Afficher uniquement les candidats d'un parti politique spécifique")
+    console.log("[2] Afficher les candidats d'un parti politique spécifique")
 
     choix = parseInt(PromptSync("Quelles votre choix?. "))
 
-    if (choix===1) {
+    if (choix === 1) {
+        BubbleSortCondidats();
+        for (let i = condidats.length - 1; i >= 0; i--) {
+            PrintCondidats(condidats[i])
+            console.log(`\n\n`);
+        }
 
-    } else if (choix===2) {
+    } else if (choix === 2) {
+        BubbleSortCondidats();
+        let found = false;
+        let partiPolitique = PromptSync("Entre le parti politique : ")
+
+        for (let i = condidats.length - 1; i >= 0; i--) {
+            if (condidats[i].partiPolitique.toLocaleLowerCase() === partiPolitique.toLocaleLowerCase()) {
+                found = true;
+                console.log(`\n`);
+                PrintCondidats(condidats[i])
+                console.log(`\n`);
+            }
+        }
+
+        if (!found) {
+            console.log(`Il n'y a pas de parti politique portant ce nom.\n\n`);
+        }
+
 
     } else {
         console.log(`fault choix!!`);
@@ -212,21 +314,21 @@ function AjouterUnCondidate() {
     }
 
 
-    let condidateNom = PromptSync(`Enter votre nom : `);
-    let CondidatePrenom = PromptSync(`Enter votre prenom : `);
-    let condidatePartiPolitique = PromptSync(`Enter votre partiPolitique : `);
-    let condidateAge = parseInt(PromptSync(`Enter votre age : `));
+    let condidatNom = PromptSync(`Enter votre nom : `);
+    let CondidatPrenom = PromptSync(`Enter votre prenom : `);
+    let condidatPartiPolitique = PromptSync(`Enter votre partiPolitique : `);
+    let condidatAge = parseInt(PromptSync(`Enter votre age : `));
 
-    if (condidatePartiPolitique === "") {
-        condidatePartiPolitique = "Indépendant";
+    if (condidatPartiPolitique === "") {
+        condidatPartiPolitique = "Independant";
     }
 
     let candidat = {
         cin: condidateCin,
-        nom: condidateNom,
-        prenom: CondidatePrenom,
-        partiPolitique: condidatePartiPolitique,
-        age: condidateAge,
+        nom: condidatNom,
+        prenom: CondidatPrenom,
+        partiPolitique: condidatPartiPolitique,
+        age: condidatAge,
         electeurs: []
     };
 
@@ -236,19 +338,28 @@ function AjouterUnCondidate() {
 }
 
 
-function BubbleSortArr(array , key) {
-    
-    
-    for (let i = 0; i < array.length - i; i++) {
+function BubbleSortCondidats() {
 
-        for (let j = 0; j < array.length - i - 1; j++) {
-            if(array[j][key]>array[j+1][key])
-            {
-                let temp = array[j];
-                array[j] = array[j+1];
-                array[j+1] = temp;
+
+    for (let i = 0; i < condidats.length - i; i++) {
+
+        for (let j = 0; j < condidats.length - i - 1; j++) {
+            if (condidats[j].electeurs.length > condidats[j + 1].electeurs.length) {
+                let temp = condidats[j];
+                condidats[j] = condidats[j + 1];
+                condidats[j + 1] = temp;
             }
         }
     }
-    
+
+}
+
+function PrintCondidats(candidat) {
+    console.log(`Candidat Identifiant: ${candidat.cin}`)
+    console.log(`Candidat nom et prénom: ${candidat.nom} ${candidat.prenom}`)
+    console.log(`Candidat Parti politique: ${candidat.partiPolitique}`)
+    console.log(`Candidat Âge: ${candidat.age}`)
+    console.log(`Nombre de votes: ${candidat.electeurs.length}`)
+
+
 }
