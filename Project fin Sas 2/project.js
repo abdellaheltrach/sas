@@ -125,6 +125,19 @@ function choix3AfficherLaListeDesCandidats() {
     console.log(`=== LISTE DES CANDIDATS === \n\n\n`)
 
 
+    let choix = 0;
+    console.log("[1] Afficher la liste des candidats par les nombre de votes")
+    console.log("[2] Ajouter plusieurs candidats à la fois")
+
+    choix = parseInt(PromptSync("Quelles votre choix?. "))
+
+    if (choix===1) {
+
+    } else if (choix===2) {
+
+    } else {
+        console.log(`fault choix!!`);
+    }
 
     PromptSync("continue?. ");
     console.clear();
