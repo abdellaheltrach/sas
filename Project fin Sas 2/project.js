@@ -153,7 +153,7 @@ do {
 
 
 
-function choix1AjouteNouveauCandidat(trips) {
+function choix1AjouteNouveauCandidat() {
     console.clear()
     console.log(`=== AJOUTE NOUVEAU CANDIDAT === \n\n\n`)
 
@@ -173,7 +173,7 @@ function choix1AjouteNouveauCandidat(trips) {
 
 }
 
-function choix2AjouterPlusieursCandidatsALaFois(trips) {
+function choix2AjouterPlusieursCandidatsALaFois() {
     console.clear()
     console.log(`=== AJOUTER PLUSIEURS CANDIDATS === \n\n\n`)
 
@@ -413,10 +413,14 @@ function choix7RechercherDesCandidats() {
 
 
 
-function choix8StatistiquesDeLélection(tickets) {
+function choix8StatistiquesDeLélection() {
     console.clear()
+    console.log(`=== STATISTIQUES DE L'ÉLECTION === \n\n\n`)
 
-
+    console.log(`Nombre total de candidats : ${candidats.length}`);
+    console.log(`Nombre total de votes exprimés : ${totalVotes()}`);
+    // console.log(`Top ${rank} : ${name} (${party})`);
+    // console.log(`Parti ${party} : ${count} candidat(s)`);
 
     PromptSync("continue?. ");
     console.clear();
@@ -511,3 +515,15 @@ function DeleteCondidate(condidateIndex) {
 
 }
 
+//stats
+
+function totalVotes()
+{
+    let somme = 0;
+    for (let i = 0; i < candidats.length; i++) {
+        somme += candidats[i].electeurs.length;
+        
+    }
+
+    return somme;
+}
