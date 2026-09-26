@@ -110,7 +110,6 @@ do {
 
     switch (choix) {
         case 0:
-            repeat = false;
             break;
         case 1:
             AjouteNouveauCandidat();
@@ -213,9 +212,12 @@ function AfficherLaListeDesCandidats() {
 
     if (choix === 1) {
         BubbleSortCandidats();
-        for (let i = candidats.length - 1; i >= 0; i--) {
+
+
+        for (let i = 0; i < candidats.length; i++) {
             PrintCandidats(candidats[i])
             console.log(`\n\n`);
+
         }
 
     } else if (choix === 2) {
@@ -223,14 +225,18 @@ function AfficherLaListeDesCandidats() {
         let found = false;
         let partiPolitique = PromptSync("Entre le parti politique : ")
 
-        for (let i = candidats.length - 1; i >= 0; i--) {
+
+        for (let i = 0; i < candidats.length; i++) {
             if (candidats[i].partiPolitique.toUpperCase() === partiPolitique.toUpperCase()) {
                 found = true;
                 console.log(`\n`);
                 PrintCandidats(candidats[i])
                 console.log(`\n`);
             }
+
         }
+
+
 
         if (!found) {
             console.log(`Il n'y a pas de parti politique portant ce nom.\n\n`);
@@ -317,7 +323,7 @@ function ModifierLesInformationsDunCandidat() {
 
         } else if (choix === 2) {
 
-            let newAge = parseInt(PromptSync("Entre le neveaux parti politique : "))
+            let newAge = parseInt(PromptSync("Entre le neveaux âge : "))
             candidats[foundIndex].age = newAge;
             console.log(`Le candidat a été mis à jour avec succès.\n\n`);
 
@@ -388,7 +394,6 @@ function RechercherDesCandidats() {
     for (let i = 0; i < candidats.length; i++) {
         if (candidats[i].nom === candidatnom) {
             foundIndex = i;
-            break;
         }
     }
 
@@ -496,7 +501,7 @@ function BubbleSortCandidats() {
     for (let i = 0; i < candidats.length; i++) {
 
         for (let j = 0; j < candidats.length - i - 1; j++) {
-            if (candidats[j].electeurs.length > candidats[j + 1].electeurs.length) {
+            if (candidats[j].electeurs.length < candidats[j + 1].electeurs.length) {
                 let temp = candidats[j];
                 candidats[j] = candidats[j + 1];
                 candidats[j + 1] = temp;
@@ -552,8 +557,23 @@ function totalVotes() {
 
 function PrintTop3Candidats() {
     BubbleSortCandidats();
+
+
+
+    let stopCounter = 0;
+
+    if (candidats.length <= 3) {
+        stopCounter = candidats.length;
+    } else {
+        stopCounter = candidats.length - 3;
+    }
+
     let count = 1;
-    for (let i = candidats.length - 1; i >= candidats.length - 3; i--) {
+
+    for (let i = 0; i < 3; i++) {
+        if (candidats[i] === undefined) {
+            break;
+        }
         console.log(`Top ${count} : ${candidats[i].nom + " " + candidats[i].prenom} represent --${candidats[i].partiPolitique}-- avec total votes ${candidats[i].electeurs.length} `);
 
         count++;
@@ -584,6 +604,10 @@ function ShowPartiPolitiqueByNumberOfCandidats() {
 
     for (let i = 0; i < pariesPolitques.length; i++) {
         let count = 0;
+        if (pariesPolitques[i] === undefined) {
+            break;
+        }
+
         for (let j = 0; j < candidats.length; j++) {
             if (candidats[j].partiPolitique === pariesPolitques[i]) {
                 count++;
