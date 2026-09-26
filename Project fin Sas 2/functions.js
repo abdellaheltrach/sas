@@ -469,14 +469,14 @@ function ShowPartiPolitiqueByNumberOfCandidats() {
 }
 
 
-  ShowPartiPolitiqueByNumberOfCandidats,
-  PrintTop3Candidats,
-  totalVotes,
-  DeleteCandidate,
-  IsCinUniqueInElecteurs,
-  PrintCandidats,
-  BubbleSortCandidats,
-  AjouterUnCandidate,
+//   ShowPartiPolitiqueByNumberOfCandidats,
+//   PrintTop3Candidats,
+//   totalVotes,
+//   DeleteCandidate,
+//   IsCinUniqueInElecteurs,
+//   PrintCandidats,
+//   BubbleSortCandidats,
+//   AjouterUnCandidate,
 
 module.exports = {
     StatistiquesDeLélection,
