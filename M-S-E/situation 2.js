@@ -5,6 +5,7 @@ const array = [3, 10, 2, 1, 20, 4, 5, 6, 1, 8, 9, 10, 11];
 let maxSome = 0;
 let totalElementInMax = 0;
 
+
 for (let i = 0; i < array.length; i++) {
 
     let some = array[i];
